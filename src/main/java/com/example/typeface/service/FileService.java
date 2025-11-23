@@ -39,4 +39,15 @@ public class FileService {
     public List<File> getAllFiles(User user) {
         return fileRepository.findByUser(user);
     }
+
+    public void deleteFile(UUID id, User user) {
+        File file = fileRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("File not found"));
+        
+        if (!file.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("You are not authorized to delete this file");
+        }
+        
+        fileRepository.delete(file);
+    }
 }

@@ -85,6 +85,23 @@ public class FileController {
                 .body(file.getData());
     }
     
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteFile(@PathVariable UUID id) {
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            org.springframework.security.core.userdetails.UserDetails userDetails = (org.springframework.security.core.userdetails.UserDetails) auth.getPrincipal();
+            String username = userDetails.getUsername();
+            
+            User user = userRepository.findByEmail(username)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            fileService.deleteFile(id, user);
+            return ResponseEntity.status(HttpStatus.OK).body("File deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not delete the file: " + e.getMessage());
+        }
+    }
+
     // Inner DTO for response
     public static class FileResponse {
         private String name;
