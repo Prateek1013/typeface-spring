@@ -2,6 +2,7 @@
 
 A Spring Boot application providing file storage and management APIs with JWT authentication.
 
+Frontend repo- https://github.com/Prateek1013/typeface-react
 ## Prerequisites
 
 - Java 17 or higher
