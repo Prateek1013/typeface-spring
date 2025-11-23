@@ -81,7 +81,7 @@ public class FileController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
-                .contentType(MediaType.parseMediaType(file.getType())) // Set content type dynamically
+                .contentType(MediaType.parseMediaType(file.getType()))
                 .body(file.getData());
     }
     
@@ -102,7 +102,6 @@ public class FileController {
         }
     }
 
-    // Inner DTO for response
     public static class FileResponse {
         private String name;
         private String url;

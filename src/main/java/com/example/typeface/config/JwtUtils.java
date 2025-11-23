@@ -13,7 +13,7 @@ public class JwtUtils {
     @Value("${app.jwt.secret}")
     private String SECRET;
     @Value("${app.jwt.expiration}")
-    private long EXPIRATION; // 1 day
+    private long EXPIRATION;
 
     public String generateToken(String email) {
         return Jwts.builder()
